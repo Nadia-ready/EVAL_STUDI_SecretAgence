@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1> Liste des missions</h1>
+{% for key, mission in missions %}
+    <div>{{ key }}: {{ mission.titre }}</div>
+    <div>{{ key }}: {{ mission.description }}</div>
+{% endfor %}
+{% endblock main %}
+

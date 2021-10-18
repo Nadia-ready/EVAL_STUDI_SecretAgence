@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Secret Agence</title>
+
+    {%  block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {% endblock stylesheets %}
+</head>
+<body>
+<header class="header-top">
+    <img class="header-top-image" src="{{ asset('assets/image/logo.jpg') }}" alt="logo">
+
+    <form action="{{ path('mission_search') }}">
+        <label for="q">Rechercher des missions</label>
+        <input type="text" name="q" />
+        <input type="submit">
+    </form>
+</header>
+<main>
+    {% block main %}
+
+    {% endblock main %}
+</main>
+
+<footer>
+
+</footer>
+<script src="{{ asset('assets/js/global.js') }}"></script>
+</body>
+
+</html>

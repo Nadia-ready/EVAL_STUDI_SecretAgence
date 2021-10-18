@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+    {% block main %}
+        <div class="missions-container">
+
+            <table>
+                <thead>
+                <tr>
+                    <td>Missions</td>
+                    <td>Titre</td>
+                    <td class="table-description">Description</td>
+                    <td>Nom de code</td>
+                    <td>Date de début</td>
+                    <td>Date de fin</td>
+                    <td>Agent</td>
+                    <td>nationalite</td>
+                    <td>contact</td>
+                    <td>cible</td>
+                    <td>typesMission</td>
+                    <td>statut</td>
+                    <td>planque</td>
+                    <td>specialite</td>
+                    <td>Supprimer</td>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for mission in missionsSearch %}
+                    <tr>
+                        <td>{{ mission.id }}</td>
+                        <td>{{ mission.titre }}</td>
+                        <td>{{ mission.description }}</td>
+                        <td>{{ mission.nomCode }}</td>
+                        <td>{{ mission.dateDebut|date("m/d/Y") }}</td>
+                        <td>{{ mission.dateFin|date("m/d/Y") }}</td>
+                        <td>agent : {{ mission.agent.nom }}</td>
+                        <td>nationalite : {{ mission.nationalite.pays }}</td>
+                        <td>contact : {{ mission.contact.nom }}</td>
+                        <td>cible : {{ mission.cible.nom }}</td>
+                        <td>typesMission : {{ mission.typesMission.nom }}</td>
+                        <td>statut : {{ mission.statut.nom }}</td>
+                        <td>planque : {{ mission.planque.code }}</td>
+                        <td>specialite : {{ mission.specialite.nom }}</td>
+                        <td><a href="{{ path('admin_missions_liste_delete', {'id': mission.id }) }}">Supprimer la mission</a></td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    {% endblock main %}
