@@ -1,8 +1,16 @@
 {% extends 'admin/base.html.twig' %}
 
     {% block main %}
-        <div class="missions-container">
+        <br>
+        <button class="button"
+                type="button">
 
+            <a href="{{ path('admin_missions_liste_insert') }}">Ajouter une mission</a>
+
+        </button>
+
+
+        <div class="missions-container">
                 <table>
                     <thead>
                         <tr>
@@ -20,6 +28,7 @@
                             <td>statut</td>
                             <td>planque</td>
                             <td>specialite</td>
+                            <td>Modifier la mission</td>
                             <td>Supprimer</td>
                         </tr>
                     </thead>
@@ -41,6 +50,7 @@
                                 <td>statut : {{ mission.statut.nom }}</td>
                                 <td>planque : {{ mission.planque.code }}</td>
                                 <td>specialite : {{ mission.specialite.nom }}</td>
+                                <td><a href="{{ path('admin_missions_liste_update', {'id': mission.id}) }}">Modifier une mission</a></td>
                                 <td><a href="{{ path('admin_missions_liste_delete', {'id': mission.id }) }}">Supprimer la mission</a></td>
 
                             </tr>

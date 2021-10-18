@@ -44,7 +44,7 @@ class MissionsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/missions/insert")
+     * @Route("/admin/missions/insert", name="admin_missions_liste_insert")
      */
     public function adminMissionsInsert(EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -63,8 +63,33 @@ class MissionsController extends AbstractController
         return $this->render('admin/missionsInsert.html.twig', [
             'missionForm' => $missionForm->createView()
         ]);
-
     }
+
+
+        /**
+         * @Route("/admin/missions/update/{id}", name="admin_missions_liste_update")
+         */
+        public function adminMissionsUpdate($id, MissionRepository $missionRepository, EntityManagerInterface $entityManager, Request $request): Response
+        {
+            $mission = $missionRepository->find($id);
+
+            $missionForm = $this->createForm(MissionType::class, $mission);
+
+            //lier le formulaire aux données de la requête
+            $missionForm->handleRequest($request);
+
+            if ($missionForm->isSubmitted() && $missionForm->isValid()) {
+                $entityManager->persist($mission);
+                $entityManager->flush();
+            }
+
+            return $this->render('admin/missionsInsert.html.twig', [
+                'missionForm' => $missionForm->createView()
+            ]);
+        }
+
+
+
 
     /**
      * @Route("/search", name="mission_search")

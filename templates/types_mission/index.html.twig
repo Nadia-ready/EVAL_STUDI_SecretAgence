@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypesMission index{% endblock %}
+
+{% block body %}
+    <h1>TypesMission index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for types_mission in types_missions %}
+            <tr>
+                <td>{{ types_mission.id }}</td>
+                <td>{{ types_mission.nom }}</td>
+                <td>
+                    <a href="{{ path('types_mission_show', {'id': types_mission.id}) }}">show</a>
+                    <a href="{{ path('types_mission_edit', {'id': types_mission.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('types_mission_new') }}">Create new</a>
+{% endblock %}

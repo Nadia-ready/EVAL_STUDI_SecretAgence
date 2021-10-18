@@ -4,9 +4,14 @@ namespace App\Form;
 
 use App\Entity\Administrateur;
 use App\Entity\Agent;
+use App\Entity\Cible;
+use App\Entity\Contact;
 use App\Entity\Mission;
+use App\Entity\Nationalite;
+use App\Entity\Planque;
 use App\Entity\Specialite;
 use App\Entity\Statut;
+use App\Entity\TypesMission;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -39,11 +44,26 @@ class MissionType extends AbstractType
                 'class' => Statut::class,
                 'choice_label' => 'nom'
             ])
-            ->add('typesMission')
-            ->add('planque')
-            ->add('contact')
-            ->add('cible')
-            ->add('nationalite')
+            ->add('typesMission', EntityType::class, [
+                'class' => TypesMission::class,
+                'choice_label' => 'nom'
+            ])
+            ->add('planque', EntityType::class, [
+                'class' => Planque::class,
+                'choice_label' => 'code'
+            ])
+            ->add('contact', EntityType::class, [
+                'class' => Contact::class,
+                'choice_label' => 'nom'
+            ])
+            ->add('cible', EntityType::class, [
+                'class' => Cible::class,
+                'choice_label' => 'nom'
+            ])
+            ->add('nationalite', EntityType::class, [
+                'class' => Nationalite::class,
+                'choice_label' => 'pays'
+            ])
 
             ->add('submit', SubmitType::class)
         ;
