@@ -12,13 +12,30 @@
 </head>
 <body>
 <header class="header-top">
-    <img class="header-top-image" src="{{ asset('assets/image/logo.jpg') }}" alt="logo">
+    <a href="{{ path('home') }}">
+        <img class="header-top-image" src="{{ asset('assets/image/logo.jpg') }}" alt="logo">
+    </a>
 
     <form action="{{ path('mission_search') }}">
         <label for="q">Rechercher des missions</label>
         <input type="text" name="q" />
         <input type="submit">
     </form>
+
+    <nav>
+        <ul>
+
+            <li><a href="{{ path('admin_missions_list') }}"> Liste des missions</a></li>
+
+            {% if app.user %}
+                <li><a href="{{ path('admin_missions_list') }}"> Zone admin</a></li>
+            {% else %}
+                <li><a href="{{ path('app_login') }}"> Zone admin</a></li>
+            {% endif %}
+
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        </ul>
+
 </header>
 <main>
     {% block main %}

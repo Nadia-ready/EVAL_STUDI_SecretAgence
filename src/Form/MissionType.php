@@ -28,10 +28,7 @@ class MissionType extends AbstractType
             ->add('nom_code')
             ->add('date_debut')
             ->add('date_fin')
-            ->add('admin', EntityType::class, [
-                'class' => Administrateur::class,
-                'choice_label' => 'nom'
-            ])
+
             ->add('agent', EntityType::class, [
                 'class' => Agent::class,
                 'choice_label' => 'nom'

@@ -6,6 +6,7 @@ use App\Repository\CibleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CibleRepository::class)
@@ -21,11 +22,25 @@ class Cible
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Nom obligatoire")
+     * @Assert\Length(
+     *     min=3,
+     *     max=20,
+     *     minMessage="Merci de saisir plus de 3 caractères",
+     *     maxMessage="Merci de saisir moins de 20 caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Prénom obligatoire")
+     * @Assert\Length(
+     *     min=3,
+     *     max=20,
+     *     minMessage="Merci de saisir plus de 3 caractères",
+     *     maxMessage="Merci de saisir moins de 20 caractères"
+     * )
      */
     private $prenom;
 

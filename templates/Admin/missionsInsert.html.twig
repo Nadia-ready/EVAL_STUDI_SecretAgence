@@ -3,5 +3,10 @@
 {% block main %}
     {{ form(missionForm) }}
 
+    <button class="button"
+            type="button">
+
+        <a href="{{ path('admin_missions_list') }}">Retourner à la liste des missions</a>
+    </button>
 
 {% endblock main %}

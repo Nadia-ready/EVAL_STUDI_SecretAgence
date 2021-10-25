@@ -6,6 +6,7 @@ use App\Repository\AgentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AgentRepository::class)
@@ -21,11 +22,25 @@ class Agent
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Attention, le nom est obligatoire!")
+     * @Assert\Length(
+     *     min=3,
+     *     max=20,
+     *     minMessage= "Merci de remplir plus de 3 caractères.",
+     *     maxMessage ="Merci de ne pas remplir plus de 20 caractères."
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Le prénom est obligatoire")
+     * @Assert\Length(
+     *     min=3,
+     *     max=20,
+     *     minMessage="Merci de remplir plus de 3 caractères.",
+     *     maxMessage="Merci de ne pas remplir plus de 20 caractères."
+     * )
      */
     private $prenom;
 
@@ -36,6 +51,7 @@ class Agent
 
     /**
      * @ORM\Column(type="integer")
+     *
      */
     private $code_identification;
 

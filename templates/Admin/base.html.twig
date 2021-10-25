@@ -13,13 +13,29 @@
 </head>
 <body>
 <header class="header-top">
-    <img class="header-top-image" src="{{ asset('assets/image/logo.jpg') }}" alt="logo">
+    <a href="{{ path('home') }}">
+        <img class="header-top-image" src="{{ asset('assets/image/logo.jpg') }}" alt="logo">
+    </a>
+
 
     <form action="{{ path('mission_search') }}">
         <label for="q">Rechercher des missions</label>
         <input type="text" name="q" />
         <input type="submit">
     </form>
+
+    <nav>
+        <ul>
+            <li><a href="{{ path('admin_missions_list') }}"> Liste des missions</a></li>
+
+
+            <li><a href="{{ path('app_login') }}"> Changer Admin</a></li>
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        </ul>
+    </nav>
+
+    <p>Zone ADMIN pour {{ app.user.email }}</p>
+
 </header>
 <main>
     {% block main %}
