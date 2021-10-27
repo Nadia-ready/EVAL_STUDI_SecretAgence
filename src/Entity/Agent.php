@@ -65,7 +65,7 @@ class Agent
      * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="agents")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $specialité;
+    private $specialite;
 
     /**
      * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="agent")
@@ -76,6 +76,11 @@ class Agent
      * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="agents")
      */
     private $agent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Specialite::class, mappedBy="agent2")
+     */
+    private $specialites;
 
 
 
@@ -88,6 +93,7 @@ class Agent
         $this->specialite = new ArrayCollection();
         $this->missions = new ArrayCollection();
         $this->agent = new ArrayCollection();
+        $this->specialites = new ArrayCollection();
 
     }
 
@@ -212,14 +218,11 @@ class Agent
         return $this;
     }
 
-    public function getSpecialité(): ?Specialite
-    {
-        return $this->specialité;
-    }
 
-    public function setSpecialité(?Specialite $specialité): self
+
+    public function setSpecialite(?Specialite $specialite): self
     {
-        $this->specialité = $specialité;
+        $this->specialite = $specialite;
 
         return $this;
     }
@@ -276,6 +279,14 @@ class Agent
         $this->agent->removeElement($agent);
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Specialite[]
+     */
+    public function getSpecialites(): Collection
+    {
+        return $this->specialites;
     }
 
 

@@ -5,15 +5,17 @@ namespace App\Controller;
 use App\Entity\Agent;
 use App\Form\AgentType;
 use App\Repository\AgentRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/agent')]
+
 class AgentController extends AbstractController
 {
-    #[Route('/', name: 'agent_index', methods: ['GET'])]
+    #[Route('/admin/agents', name: 'agent_index', methods: ['GET'])]
     public function index(AgentRepository $agentRepository): Response
     {
         return $this->render('agent/index.html.twig', [
@@ -21,7 +23,8 @@ class AgentController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'agent_new', methods: ['GET','POST'])]
+
+    #[Route('/admin/agents/new', name: 'agent_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $agent = new Agent();

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Agent;
+use App\Entity\Nationalite;
+use App\Entity\Specialite;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,9 +19,19 @@ class AgentType extends AbstractType
             ->add('prenom')
             ->add('date_naissance')
             ->add('code_identification')
-            ->add('nationalite')
-            ->add('specialité')
-            ->add('agent')
+            ->add('nationalite', EntityType::class, [
+                'class' => Nationalite::class,
+                'choice_label' => 'nationalite',
+                'mapped' => false
+            ])
+            ->add('specialite', EntityType::class, [
+                'class' => Specialite::class,
+                'choice_label' => 'nom',
+                'required' =>true,
+                'mapped' => false
+
+            ])
+            //->add('agent')
         ;
     }
 

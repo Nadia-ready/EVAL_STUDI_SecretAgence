@@ -15,7 +15,7 @@ class CibleAgentNationalityValidator extends ConstraintValidator
             return;
         }
 
-        if ()
+
         // TODO: implement the validation here
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $value)

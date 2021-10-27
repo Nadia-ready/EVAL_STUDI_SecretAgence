@@ -33,7 +33,7 @@ class Specialite
     private $agent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Agent::class, mappedBy="specialité")
+     * @ORM\OneToMany(targetEntity=Agent::class, mappedBy="specialite")
      */
     private $agents;
 
@@ -41,6 +41,11 @@ class Specialite
      * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="specialite")
      */
     private $missions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=agent::class, inversedBy="specialites")
+     */
+    private $agent2;
 
     public function __construct()
     {
@@ -89,7 +94,7 @@ class Specialite
     {
         if (!$this->agents->contains($agent)) {
             $this->agents[] = $agent;
-            $agent->setSpecialité($this);
+            $agent->setSpecialite($this);
         }
 
         return $this;
@@ -99,8 +104,8 @@ class Specialite
     {
         if ($this->agents->removeElement($agent)) {
             // set the owning side to null (unless already changed)
-            if ($agent->getSpecialité() === $this) {
-                $agent->setSpecialité(null);
+            if ($agent->getSpecialite() === $this) {
+                $agent->setSpecialite(null);
             }
         }
 
@@ -133,6 +138,18 @@ class Specialite
                 $mission->setSpecialite(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAgent2(): ?agent
+    {
+        return $this->agent2;
+    }
+
+    public function setAgent2(?agent $agent2): self
+    {
+        $this->agent2 = $agent2;
 
         return $this;
     }

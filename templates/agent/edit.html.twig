@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Edit Agent{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Edit Agent</h1>
 
     {{ include('agent/_form.html.twig', {'button_label': 'Update'}) }}

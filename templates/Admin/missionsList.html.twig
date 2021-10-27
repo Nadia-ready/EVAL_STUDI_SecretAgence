@@ -9,6 +9,13 @@
 
         </button>
 
+        <button class="button"
+                type="button">
+
+            <a href="{{ path('agent_new') }}">Ajouter un agent</a>
+
+        </button>
+
 
         <div class="missions-container">
                 <table>
@@ -49,7 +56,7 @@
                                 <td>typesMission : {{ mission.typesMission.nom }}</td>
                                 <td>statut : {{ mission.statut.nom }}</td>
                                 <td>planque : {{ mission.planque.code }}</td>
-                                <td>specialite : {{ mission.specialite.nom }}</td>
+                                <td>specialite : {{ mission.specialite.id }}</td>
                                 <td><a href="{{ path('admin_missions_liste_update', {'id': mission.id}) }}">Modifier une mission</a></td>
                                 <td><a href="{{ path('admin_missions_liste_delete', {'id': mission.id }) }}">Supprimer la mission</a></td>
 
