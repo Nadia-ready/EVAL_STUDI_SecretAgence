@@ -45,7 +45,7 @@ class AgentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'agent_show', methods: ['GET'])]
+    #[Route('/admin/agents/{id}', name: 'agent_show', methods: ['GET'])]
     public function show(Agent $agent): Response
     {
         return $this->render('agent/show.html.twig', [

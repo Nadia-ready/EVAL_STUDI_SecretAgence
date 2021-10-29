@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use App\Entity\Nationalite;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +18,11 @@ class ContactType extends AbstractType
             ->add('prenom')
             ->add('date_naissance')
             ->add('nom_code')
-            ->add('nationalite')
+            ->add('nationalite', EntityType::class, [
+                'class' => Nationalite::class,
+                'choice_label' => 'nationalite',
+                'required' => true
+            ])
         ;
     }
 

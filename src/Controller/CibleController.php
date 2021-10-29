@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/cible')]
+#[Route('/admin/cible')]
 class CibleController extends AbstractController
 {
     #[Route('/', name: 'cible_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class CibleController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'cible_new', methods: ['GET','POST'])]
+    #[Route('/admin/cible/new', name: 'cible_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $cible = new Cible();
@@ -42,7 +42,7 @@ class CibleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'cible_show', methods: ['GET'])]
+    #[Route('/admin/cible/{id}', name: 'cible_show', methods: ['GET'])]
     public function show(Cible $cible): Response
     {
         return $this->render('cible/show.html.twig', [
@@ -50,7 +50,7 @@ class CibleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'cible_edit', methods: ['GET','POST'])]
+    #[Route('/admin/cible/{id}/edit', name: 'cible_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Cible $cible): Response
     {
         $form = $this->createForm(CibleType::class, $cible);
@@ -68,7 +68,7 @@ class CibleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'cible_delete', methods: ['POST'])]
+    #[Route('/admin/cible/{id}', name: 'cible_delete', methods: ['POST'])]
     public function delete(Request $request, Cible $cible): Response
     {
         if ($this->isCsrfTokenValid('delete'.$cible->getId(), $request->request->get('_token'))) {

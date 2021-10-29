@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/planque')]
+#[Route('/admin/planque')]
 class PlanqueController extends AbstractController
 {
     #[Route('/', name: 'planque_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class PlanqueController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'planque_new', methods: ['GET','POST'])]
+    #[Route('/admin/planque/new', name: 'planque_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $planque = new Planque();
@@ -42,7 +42,7 @@ class PlanqueController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'planque_show', methods: ['GET'])]
+    #[Route('/admin/planque/{id}', name: 'planque_show', methods: ['GET'])]
     public function show(Planque $planque): Response
     {
         return $this->render('planque/show.html.twig', [
@@ -50,7 +50,7 @@ class PlanqueController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'planque_edit', methods: ['GET','POST'])]
+    #[Route('/admin/planque/{id}/edit', name: 'planque_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Planque $planque): Response
     {
         $form = $this->createForm(PlanqueType::class, $planque);
@@ -68,7 +68,7 @@ class PlanqueController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'planque_delete', methods: ['POST'])]
+    #[Route('/admin/planque/{id}', name: 'planque_delete', methods: ['POST'])]
     public function delete(Request $request, Planque $planque): Response
     {
         if ($this->isCsrfTokenValid('delete'.$planque->getId(), $request->request->get('_token'))) {

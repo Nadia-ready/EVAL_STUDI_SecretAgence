@@ -6,6 +6,7 @@ use App\Repository\AgentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,6 +18,8 @@ class Agent
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ParamConverter("post", options={"id" = "post_id"})
+     *
      */
     private $id;
 
@@ -72,10 +75,12 @@ class Agent
      */
     private $missions;
 
+    /*
     /**
      * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="agents")
-     */
-    private $agent;
+     * @ParamConverter("post", options={"id" = "post_id"})
+
+    private $agent;*/
 
     /**
      * @ORM\OneToMany(targetEntity=Specialite::class, mappedBy="agent2")

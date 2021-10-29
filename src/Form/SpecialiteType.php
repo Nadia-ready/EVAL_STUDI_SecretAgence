@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Agent;
 use App\Entity\Specialite;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +15,11 @@ class SpecialiteType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('agent')
+            //->add('agent', EntityType::class, [
+            //    'class' => Agent::class,
+            //    'choice_label' => 'nom',
+            //    'required' => true
+            //])
         ;
     }
 

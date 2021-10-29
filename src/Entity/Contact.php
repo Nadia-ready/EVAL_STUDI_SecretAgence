@@ -45,7 +45,7 @@ class Contact
     private $prenom;
 
     /**
-     * @ORM\Column(type="date", length=255)
+     * @ORM\Column(type="date")
      */
     private $date_naissance;
 
@@ -99,7 +99,7 @@ class Contact
         return $this;
     }
 
-    public function getDateNaissance(): ?string
+    public function getDateNaissance(): ?\DateTimeInterface
     {
         return $this->date_naissance;
     }

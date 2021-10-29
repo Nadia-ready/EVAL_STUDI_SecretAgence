@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/types/mission')]
+#[Route('/admin/types/mission')]
 class TypesMissionController extends AbstractController
 {
     #[Route('/', name: 'types_mission_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class TypesMissionController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'types_mission_new', methods: ['GET','POST'])]
+    #[Route('/admin/types/mission/new', name: 'types_mission_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $typesMission = new TypesMission();
@@ -42,7 +42,7 @@ class TypesMissionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'types_mission_show', methods: ['GET'])]
+    #[Route('/admin/types/mission/{id}', name: 'types_mission_show', methods: ['GET'])]
     public function show(TypesMission $typesMission): Response
     {
         return $this->render('types_mission/show.html.twig', [
@@ -50,7 +50,7 @@ class TypesMissionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'types_mission_edit', methods: ['GET','POST'])]
+    #[Route('/admin/types/mission/{id}/edit', name: 'types_mission_edit', methods: ['GET','POST'])]
     public function edit(Request $request, TypesMission $typesMission): Response
     {
         $form = $this->createForm(TypesMissionType::class, $typesMission);
@@ -68,7 +68,7 @@ class TypesMissionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'types_mission_delete', methods: ['POST'])]
+    #[Route('/admin/types/mission/{id}', name: 'types_mission_delete', methods: ['POST'])]
     public function delete(Request $request, TypesMission $typesMission): Response
     {
         if ($this->isCsrfTokenValid('delete'.$typesMission->getId(), $request->request->get('_token'))) {

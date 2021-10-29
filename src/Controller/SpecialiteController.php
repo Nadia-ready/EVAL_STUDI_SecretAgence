@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/specialite')]
+#[Route('/admin/specialite')]
 class SpecialiteController extends AbstractController
 {
     #[Route('/', name: 'specialite_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class SpecialiteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'specialite_new', methods: ['GET','POST'])]
+    #[Route('/admin/specialite/new', name: 'specialite_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $specialite = new Specialite();
@@ -42,7 +42,7 @@ class SpecialiteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'specialite_show', methods: ['GET'])]
+    #[Route('/admin/specialite/{id}', name: 'specialite_show', methods: ['GET'])]
     public function show(Specialite $specialite): Response
     {
         return $this->render('specialite/show.html.twig', [
@@ -50,7 +50,7 @@ class SpecialiteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'specialite_edit', methods: ['GET','POST'])]
+    #[Route('/admin/specialite/{id}/edit', name: 'specialite_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Specialite $specialite): Response
     {
         $form = $this->createForm(SpecialiteType::class, $specialite);
@@ -68,7 +68,7 @@ class SpecialiteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'specialite_delete', methods: ['POST'])]
+    #[Route('/admin/specialite/{id}', name: 'specialite_delete', methods: ['POST'])]
     public function delete(Request $request, Specialite $specialite): Response
     {
         if ($this->isCsrfTokenValid('delete'.$specialite->getId(), $request->request->get('_token'))) {

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/nationalite')]
+#[Route('/admin/nationalite')]
 class NationaliteController extends AbstractController
 {
     #[Route('/', name: 'nationalite_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class NationaliteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'nationalite_new', methods: ['GET','POST'])]
+    #[Route('/admin/nationalite/new', name: 'nationalite_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $nationalite = new Nationalite();
@@ -42,7 +42,7 @@ class NationaliteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'nationalite_show', methods: ['GET'])]
+    #[Route('/admin/nationalite/{id}', name: 'nationalite_show', methods: ['GET'])]
     public function show(Nationalite $nationalite): Response
     {
         return $this->render('nationalite/show.html.twig', [
@@ -50,7 +50,7 @@ class NationaliteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'nationalite_edit', methods: ['GET','POST'])]
+    #[Route('/admin/nationalite/{id}/edit', name: 'nationalite_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Nationalite $nationalite): Response
     {
         $form = $this->createForm(NationaliteType::class, $nationalite);
@@ -68,7 +68,7 @@ class NationaliteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'nationalite_delete', methods: ['POST'])]
+    #[Route('/admin/nationalite/{id}', name: 'nationalite_delete', methods: ['POST'])]
     public function delete(Request $request, Nationalite $nationalite): Response
     {
         if ($this->isCsrfTokenValid('delete'.$nationalite->getId(), $request->request->get('_token'))) {

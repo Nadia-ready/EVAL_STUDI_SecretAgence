@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/contact')]
+#[Route('/admin/contact')]
 class ContactController extends AbstractController
 {
     #[Route('/', name: 'contact_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class ContactController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'contact_new', methods: ['GET','POST'])]
+    #[Route('/admin/new', name: 'contact_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $contact = new Contact();
@@ -42,7 +42,7 @@ class ContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'contact_show', methods: ['GET'])]
+    #[Route('/admin/{id}', name: 'contact_show', methods: ['GET'])]
     public function show(Contact $contact): Response
     {
         return $this->render('contact/show.html.twig', [
@@ -50,7 +50,7 @@ class ContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'contact_edit', methods: ['GET','POST'])]
+    #[Route('/admin/{id}/edit', name: 'contact_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Contact $contact): Response
     {
         $form = $this->createForm(ContactType::class, $contact);
@@ -68,7 +68,7 @@ class ContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'contact_delete', methods: ['POST'])]
+    #[Route('/admin/{id}', name: 'contact_delete', methods: ['POST'])]
     public function delete(Request $request, Contact $contact): Response
     {
         if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
