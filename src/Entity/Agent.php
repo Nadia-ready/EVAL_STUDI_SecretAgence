@@ -53,10 +53,10 @@ class Agent
     private $date_naissance;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      *
      */
-    private $code_identification;
+    private $nom_code;
 
     /**
      * @ORM\ManyToOne(targetEntity=Nationalite::class, inversedBy="agents")
@@ -65,40 +65,20 @@ class Agent
     private $nationalite;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="agents")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $specialite;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="agent")
-     */
-    private $missions;
-
-    /*
-    /**
-     * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="agents")
-     * @ParamConverter("post", options={"id" = "post_id"})
-
-    private $agent;*/
-
-    /**
-     * @ORM\OneToMany(targetEntity=Specialite::class, mappedBy="agent2")
+     * @ORM\ManyToMany(targetEntity=Specialite::class, mappedBy="agents")
      */
     private $specialites;
 
-
-
-
+    /**
+     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="agents")
+     */
+    private $missions;
 
 
     public function __construct()
     {
-        $this->nationalite = new ArrayCollection();
-        $this->specialite = new ArrayCollection();
-        $this->missions = new ArrayCollection();
-        $this->agent = new ArrayCollection();
         $this->specialites = new ArrayCollection();
+        $this->missions = new ArrayCollection();
 
     }
 
@@ -144,61 +124,40 @@ class Agent
         return $this;
     }
 
-    public function getCodeIdentification(): ?int
+    public function getNomCode(): ?string
     {
-        return $this->code_identification;
+        return $this->nom_code;
     }
 
-    public function setCodeIdentification(int $code_identification): self
+    public function setNomCode(string $nom_code): self
     {
-        $this->code_identification = $code_identification;
+        $this->nom_code = $nom_code;
 
-        return $this;
+        return $this;;
     }
 
-    /**
-     * @return Collection|Nationalite[]
-     */
-    public function getNationalite(): Collection
+    public function getNationalite(): Nationalite
     {
         return $this->nationalite;
     }
 
-    public function addNationalite(Nationalite $nationalite): self
+    public function setNationalite(?Nationalite $nationalite): self
     {
-        if (!$this->nationalite->contains($nationalite)) {
-            $this->nationalite[] = $nationalite;
-            $nationalite->setAgent($this);
-        }
+        $this->nationalite = $nationalite;
 
         return $this;
     }
 
-    public function removeNationalite(Nationalite $nationalite): self
+    public function getSpecialites(): Collection
     {
-        if ($this->nationalite->removeElement($nationalite)) {
-            // set the owning side to null (unless already changed)
-            if ($nationalite->getAgent() === $this) {
-                $nationalite->setAgent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Specialite[]
-     */
-    public function getSpecialite(): Collection
-    {
-        return $this->specialite;
+        return $this->specialites;
     }
 
     public function addSpecialite(Specialite $specialite): self
     {
-        if (!$this->specialite->contains($specialite)) {
-            $this->specialite[] = $specialite;
-            $specialite->setAgent($this);
+        if (!$this->specialites->contains($specialite)) {
+            $this->specialites->add($specialite);
+            $specialite->addAgent($this);
         }
 
         return $this;
@@ -206,35 +165,20 @@ class Agent
 
     public function removeSpecialite(Specialite $specialite): self
     {
-        if ($this->specialite->removeElement($specialite)) {
-            // set the owning side to null (unless already changed)
-            if ($specialite->getAgent() === $this) {
-                $specialite->setAgent(null);
-            }
+        if ($this->specialites->removeElement($specialite)) {
+            $specialite->removeAgent($this);
         }
 
         return $this;
     }
 
-    public function setNationalite(string $nationalite): self
+    public function setSpecialites(Collection $specialites): self
     {
-        $this->nationalite = $nationalite;
+        $this->specialites = $specialites;
 
         return $this;
     }
 
-
-
-    public function setSpecialite(?Specialite $specialite): self
-    {
-        $this->specialite = $specialite;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Mission[]
-     */
     public function getMissions(): Collection
     {
         return $this->missions;
@@ -243,8 +187,8 @@ class Agent
     public function addMission(Mission $mission): self
     {
         if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
-            $mission->setAgent($this);
+            $this->missions->add($mission);
+            $mission->addAgent($this);
         }
 
         return $this;
@@ -253,46 +197,17 @@ class Agent
     public function removeMission(Mission $mission): self
     {
         if ($this->missions->removeElement($mission)) {
-            // set the owning side to null (unless already changed)
-            if ($mission->getAgent() === $this) {
-                $mission->setAgent(null);
-            }
+            $mission->removeAgent($this);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|self[]
-     */
-    public function getAgent(): Collection
+    public function setMissions(Collection $missions): self
     {
-        return $this->agent;
-    }
-
-    public function addAgent(self $agent): self
-    {
-        if (!$this->agent->contains($agent)) {
-            $this->agent[] = $agent;
-        }
+        $this->missions = $missions;
 
         return $this;
     }
-
-    public function removeAgent(self $agent): self
-    {
-        $this->agent->removeElement($agent);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Specialite[]
-     */
-    public function getSpecialites(): Collection
-    {
-        return $this->specialites;
-    }
-
 
 }
