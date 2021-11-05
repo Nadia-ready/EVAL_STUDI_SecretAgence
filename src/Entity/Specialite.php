@@ -27,13 +27,7 @@ class Specialite
     private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="specialite")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $agent;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Agent::class, mappedBy="specialite")
+     * @ORM\ManyToMany(targetEntity=Agent::class, mappedBy="specialites")
      */
     private $agents;
 
@@ -41,11 +35,6 @@ class Specialite
      * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="specialite")
      */
     private $missions;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=agent::class, inversedBy="specialites")
-     */
-    private $agent2;
 
     public function __construct()
     {
@@ -70,21 +59,6 @@ class Specialite
         return $this;
     }
 
-    public function getAgent(): ?Agent
-    {
-        return $this->agent;
-    }
-
-    public function setAgent(?Agent $agent): self
-    {
-        $this->agent = $agent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Agent[]
-     */
     public function getAgents(): Collection
     {
         return $this->agents;
@@ -93,8 +67,8 @@ class Specialite
     public function addAgent(Agent $agent): self
     {
         if (!$this->agents->contains($agent)) {
-            $this->agents[] = $agent;
-            $agent->setSpecialite($this);
+            $this->agents->add($agent);
+            $agent->addSpecialite($this);
         }
 
         return $this;
@@ -103,18 +77,19 @@ class Specialite
     public function removeAgent(Agent $agent): self
     {
         if ($this->agents->removeElement($agent)) {
-            // set the owning side to null (unless already changed)
-            if ($agent->getSpecialite() === $this) {
-                $agent->setSpecialite(null);
-            }
+            $agent->removeSpecialite($this);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Mission[]
-     */
+    public function setAgents(Collection $agents): self
+    {
+        $this->agents = $agents;
+
+        return $this;
+    }
+
     public function getMissions(): Collection
     {
         return $this->missions;
@@ -123,7 +98,7 @@ class Specialite
     public function addMission(Mission $mission): self
     {
         if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
+            $this->missions->add($mission);
             $mission->setSpecialite($this);
         }
 
@@ -137,19 +112,15 @@ class Specialite
             if ($mission->getSpecialite() === $this) {
                 $mission->setSpecialite(null);
             }
+
         }
 
         return $this;
     }
 
-    public function getAgent2(): ?agent
+    public function setMissions(Collection $missions): self
     {
-        return $this->agent2;
-    }
-
-    public function setAgent2(?agent $agent2): self
-    {
-        $this->agent2 = $agent2;
+        $this->missions = $missions;
 
         return $this;
     }
