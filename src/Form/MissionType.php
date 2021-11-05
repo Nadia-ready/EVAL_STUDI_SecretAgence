@@ -10,7 +10,7 @@ use App\Entity\Mission;
 use App\Entity\Nationalite;
 use App\Entity\Planque;
 use App\Entity\Specialite;
-use App\Entity\Statut;
+use App\Entity\StatutMission;
 use App\Entity\TypesMission;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -38,7 +38,7 @@ class MissionType extends AbstractType
                 'choice_label' => 'nom'
             ])
             ->add('statut', EntityType::class, [
-                'class' => Statut::class,
+                'class' => StatutMission::class,
                 'choice_label' => 'nom'
             ])
             ->add('typesMission', EntityType::class, [

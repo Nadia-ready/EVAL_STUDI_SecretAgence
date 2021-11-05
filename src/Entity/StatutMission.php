@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=StatutRepository::class)
+ * @ORM\Entity(repositoryClass=StatutMissionRepository::class)
  */
-class Statut
+class StatutMission
 {
     /**
      * @ORM\Id
@@ -64,7 +64,7 @@ class Statut
     public function addMission(Mission $mission): self
     {
         if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
+            $this->missions->add($mission);
             $mission->setStatut($this);
         }
 
@@ -79,6 +79,13 @@ class Statut
                 $mission->setStatut(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setMissions(Collection $missions): self
+    {
+        $this->missions = $missions;
 
         return $this;
     }
