@@ -43,12 +43,12 @@ class Nationalite
     private $cibles;
 
     /**
-     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="nationalite")
+     * @ORM\ManyToMany(targetEntity=Contact::class, mappedBy="nationalite")
      */
     private $contacts;
 
     /**
-     * @ORM\OneToMany(targetEntity=Planque::class, mappedBy="nationalite")
+     * @ORM\ManyToMany(targetEntity=Planque::class, mappedBy="nationalite")
      */
     private $planques;
 
@@ -96,18 +96,6 @@ class Nationalite
         return $this;
     }
 
-    public function getAgent(): ?Agent
-    {
-        return $this->agent;
-    }
-
-    public function setAgent(?Agent $agent): self
-    {
-        $this->agent = $agent;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Agent[]
      */
@@ -138,9 +126,13 @@ class Nationalite
         return $this;
     }
 
-    /**
-     * @return Collection|Cible[]
-     */
+    public function setAgents(Collection $agents): self
+    {
+        $this->agents = $agents;
+
+        return $this;
+    }
+
     public function getCibles(): Collection
     {
         return $this->cibles;
@@ -168,9 +160,13 @@ class Nationalite
         return $this;
     }
 
-    /**
-     * @return Collection|Contact[]
-     */
+    public function setCibles(Collection $cibles): self
+    {
+        $this->cibles = $cibles;
+
+        return $this;
+    }
+
     public function getContacts(): Collection
     {
         return $this->contacts;
@@ -179,7 +175,7 @@ class Nationalite
     public function addContact(Contact $contact): self
     {
         if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
+            $this->contacts->add($contact);
             $contact->setNationalite($this);
         }
 
@@ -198,9 +194,13 @@ class Nationalite
         return $this;
     }
 
-    /**
-     * @return Collection|Planque[]
-     */
+    public function setContacts(Collection $contacts): self
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
     public function getPlanques(): Collection
     {
         return $this->planques;
@@ -209,7 +209,7 @@ class Nationalite
     public function addPlanque(Planque $planque): self
     {
         if (!$this->planques->contains($planque)) {
-            $this->planques[] = $planque;
+            $this->planques->add($planque);
             $planque->setNationalite($this);
         }
 
@@ -228,9 +228,13 @@ class Nationalite
         return $this;
     }
 
-    /**
-     * @return Collection|Mission[]
-     */
+    public function setPlanques(Collection $planques): self
+    {
+        $this->planques = $planques;
+
+        return $this;
+    }
+
     public function getMissions(): Collection
     {
         return $this->missions;
@@ -239,7 +243,7 @@ class Nationalite
     public function addMission(Mission $mission): self
     {
         if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
+            $this->missions->add($mission);
             $mission->setNationalite($this);
         }
 
@@ -254,6 +258,13 @@ class Nationalite
                 $mission->setNationalite(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setMissions(Collection $missions): self
+    {
+        $this->missions = $missions;
 
         return $this;
     }
