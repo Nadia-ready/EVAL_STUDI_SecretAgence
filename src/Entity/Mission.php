@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\MissionRepository;
 use App\Validator\CibleAgentNationality;
+use App\Validator\MissionCibleAgentNationality;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=MissionRepository::class)
@@ -61,10 +64,10 @@ class Mission
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="missions")
+     * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $agent;
+    private $agents;
 
     /**
      * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="missions")
@@ -73,40 +76,34 @@ class Mission
     private $specialite;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Statut::class, inversedBy="missions")
+     * @ORM\ManyToOne(targetEntity=StatutMission::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $statut;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypesMission::class, inversedBy="missions")
+     * @ORM\ManyToOne(targetEntity=TypeMission::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $typesMission;
+    private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Planque::class, inversedBy="missions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Planque::class, inversedBy="missions")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $planque;
+    private $planques;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Contact::class, inversedBy="missions")
+     * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $contact;
+    private $contacts;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cible::class, inversedBy="missions")
+     * @ORM\ManyToMany(targetEntity=Cible::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $cible;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Nationalite::class, inversedBy="missions")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $nationalite;
+    private $cibles;
 
     public function getId(): ?int
     {
@@ -173,20 +170,38 @@ class Mission
         return $this;
     }
 
-
-    public function getAgent(): ?Agent
+    public function getAgents(): Collection
     {
-        return $this->agent;
+        return $this->agents;
     }
 
-    public function setAgent(?Agent $agent): self
+    public function addAgent(Agent $agent): self
     {
-        $this->agent = $agent;
+        if (!$this->agents->contains($agent)) {
+            $this->agents->add($agent);
+            $agent->addMission($this);
+        }
 
         return $this;
     }
 
-    public function getSpecialite(): ?Specialite
+    public function removeAgent(Agent $agent): self
+    {
+        if ($this->agents->removeElement($agent)) {
+            $agent->removeMission($this);
+        }
+
+        return $this;
+    }
+
+    public function setAgents(Collection $agents): self
+    {
+        $this->agents = $agents;
+
+        return $this;
+    }
+
+    public function getSpecialite(): Specialite
     {
         return $this->specialite;
     }
@@ -198,67 +213,136 @@ class Mission
         return $this;
     }
 
-    public function getStatut(): ?Statut
+    public function getStatut(): StatutMission
     {
         return $this->statut;
     }
 
-    public function setStatut(?Statut $statut): self
+    public function setStatut(?StatutMission $statut): self
     {
         $this->statut = $statut;
 
         return $this;
     }
 
-    public function getTypesMission(): ?TypesMission
+    public function getType(): TypeMission
     {
-        return $this->typesMission;
+        return $this->type;
     }
 
-    public function setTypesMission(?TypesMission $typesMission): self
+    public function setType(?TypeMission $type): self
     {
-        $this->typesMission = $typesMission;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getPlanque(): ?Planque
+    public function getTypeMission(): TypeMission
     {
-        return $this->planque;
+        return $this->TypeMission;
     }
 
-    public function setPlanque(?Planque $planque): self
+    public function setTypeMission(?TypeMission $TypeMission): self
     {
-        $this->planque = $planque;
+        $this->TypeMission = $TypeMission;
 
         return $this;
     }
 
-    public function getContact(): ?Contact
+    public function getPlanques(): Collection
     {
-        return $this->contact;
+        return $this->planques;
     }
 
-    public function setContact(?Contact $contact): self
+    public function addPlanque(Planque $planque): self
     {
-        $this->contact = $contact;
+        if (!$this->planques->contains($planque)) {
+            $this->planques->add($planque);
+            $planque->addMission($this);
+        }
 
         return $this;
     }
 
-    public function getCible(): ?Cible
+    public function removePlanque(Planque $planque): self
     {
-        return $this->cible;
-    }
-
-    public function setCible(?Cible $cible): self
-    {
-        $this->cible = $cible;
+        if ($this->planques->removeElement($planque)) {
+            $planque->removeMission($this);
+        }
 
         return $this;
     }
 
-    public function getNationalite(): ?Nationalite
+    public function setPlanques(Collection $planques): self
+    {
+        $this->planques = $planques;
+
+        return $this;
+    }
+
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->addMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->removeElement($contact)) {
+            $contact->removeMission($this);
+        }
+
+        return $this;
+    }
+
+    public function setContacts(Collection $contacts): self
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
+    public function getCibles(): Collection
+    {
+        return $this->cibles;
+    }
+
+    public function addCible(Cible $cible): self
+    {
+        if (!$this->cibles->contains($cible)) {
+            $this->cibles->add($cible);
+            $cible->addMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCible(Cible $cible): self
+    {
+        if ($this->cibles->removeElement($cible)) {
+            $cible->removeMission($this);
+        }
+
+        return $this;
+    }
+
+    public function setCibles(Collection $cibles): self
+    {
+        $this->cibles = $cibles;
+
+        return $this;
+    }
+
+    public function getNationalite(): Nationalite
     {
         return $this->nationalite;
     }
@@ -268,5 +352,10 @@ class Mission
         $this->nationalite = $nationalite;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('agents', new MissionCibleAgentNationality());
     }
 }
