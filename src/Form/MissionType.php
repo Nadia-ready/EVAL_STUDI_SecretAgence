@@ -11,7 +11,7 @@ use App\Entity\Nationalite;
 use App\Entity\Planque;
 use App\Entity\Specialite;
 use App\Entity\StatutMission;
-use App\Entity\TypesMission;
+use App\Entity\TypeMission;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -42,7 +42,7 @@ class MissionType extends AbstractType
                 'choice_label' => 'nom'
             ])
             ->add('typesMission', EntityType::class, [
-                'class' => TypesMission::class,
+                'class' => TypeMission::class,
                 'choice_label' => 'nom'
             ])
             ->add('planque', EntityType::class, [

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\TypesMission;
+use App\Entity\TypeMission;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method TypesMission|null find($id, $lockMode = null, $lockVersion = null)
- * @method TypesMission|null findOneBy(array $criteria, array $orderBy = null)
- * @method TypesMission[]    findAll()
- * @method TypesMission[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TypeMission|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TypeMission|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TypeMission[]    findAll()
+ * @method TypeMission[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class TypesMissionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TypesMission::class);
+        parent::__construct($registry, TypeMission::class);
     }
 
     // /**
-    //  * @return TypesMission[] Returns an array of TypesMission objects
+    //  * @return TypeMission[] Returns an array of TypeMission objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TypesMissionRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?TypesMission
+    public function findOneBySomeField($value): ?TypeMission
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

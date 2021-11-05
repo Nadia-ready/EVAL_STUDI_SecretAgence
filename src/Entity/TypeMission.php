@@ -2,16 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TypesMissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=TypesMissionRepository::class)
+ * @ORM\Entity(repositoryClass=TypeMissionRepository::class)
  */
-class TypesMission
+class TypeMission
 {
     /**
      * @ORM\Id
@@ -27,7 +26,7 @@ class TypesMission
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="typesMission")
+     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="type")
      */
     private $missions;
 
@@ -53,9 +52,6 @@ class TypesMission
         return $this;
     }
 
-    /**
-     * @return Collection|Mission[]
-     */
     public function getMissions(): Collection
     {
         return $this->missions;
@@ -64,8 +60,8 @@ class TypesMission
     public function addMission(Mission $mission): self
     {
         if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
-            $mission->setTypesMission($this);
+            $this->missions->add($mission);
+            $mission->setTypeMission($this);
         }
 
         return $this;
@@ -75,10 +71,17 @@ class TypesMission
     {
         if ($this->missions->removeElement($mission)) {
             // set the owning side to null (unless already changed)
-            if ($mission->getTypesMission() === $this) {
-                $mission->setTypesMission(null);
+            if ($mission->getTypeMission() === $this) {
+                $mission->setTypeMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setMissions(Collection $missions): self
+    {
+        $this->missions = $missions;
 
         return $this;
     }

@@ -74,12 +74,10 @@ class Agent
      */
     private $missions;
 
-
     public function __construct()
     {
         $this->specialites = new ArrayCollection();
         $this->missions = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -133,7 +131,7 @@ class Agent
     {
         $this->nom_code = $nom_code;
 
-        return $this;;
+        return $this;
     }
 
     public function getNationalite(): Nationalite
@@ -165,7 +163,7 @@ class Agent
 
     public function removeSpecialite(Specialite $specialite): self
     {
-        if ($this->specialites->removeElement($specialite)) {
+        if($this->specialites->removeElement($specialite)) {
             $specialite->removeAgent($this);
         }
 
@@ -209,5 +207,4 @@ class Agent
 
         return $this;
     }
-
 }

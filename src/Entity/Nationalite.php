@@ -33,6 +33,12 @@ class Nationalite
     private $nationalite;
 
     /**
+     * @ORM\Column(type="string")
+     *
+     */
+    private $code;
+
+    /**
      * @ORM\OneToMany(targetEntity=Agent::class, mappedBy="nationalite")
      */
     private $agents;
@@ -94,6 +100,18 @@ class Nationalite
         $this->nationalite = $nationalite;
 
         return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;;
     }
 
     /**

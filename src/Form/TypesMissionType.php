@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\TypesMission;
+use App\Entity\TypeMission;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +19,7 @@ class TypesMissionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => TypesMission::class,
+            'data_class' => TypeMission::class,
         ]);
     }
 }

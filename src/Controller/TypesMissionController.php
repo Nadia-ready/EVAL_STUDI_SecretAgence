@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\TypesMission;
+use App\Entity\TypeMission;
 use App\Form\TypesMissionType;
 use App\Repository\TypesMissionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class TypesMissionController extends AbstractController
     #[Route('/admin/types/mission/new', name: 'types_mission_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
-        $typesMission = new TypesMission();
+        $typesMission = new TypeMission();
         $form = $this->createForm(TypesMissionType::class, $typesMission);
         $form->handleRequest($request);
 
@@ -43,7 +43,7 @@ class TypesMissionController extends AbstractController
     }
 
     #[Route('/admin/types/mission/{id}', name: 'types_mission_show', methods: ['GET'])]
-    public function show(TypesMission $typesMission): Response
+    public function show(TypeMission $typesMission): Response
     {
         return $this->render('types_mission/show.html.twig', [
             'types_mission' => $typesMission,
@@ -51,7 +51,7 @@ class TypesMissionController extends AbstractController
     }
 
     #[Route('/admin/types/mission/{id}/edit', name: 'types_mission_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, TypesMission $typesMission): Response
+    public function edit(Request $request, TypeMission $typesMission): Response
     {
         $form = $this->createForm(TypesMissionType::class, $typesMission);
         $form->handleRequest($request);
@@ -69,7 +69,7 @@ class TypesMissionController extends AbstractController
     }
 
     #[Route('/admin/types/mission/{id}', name: 'types_mission_delete', methods: ['POST'])]
-    public function delete(Request $request, TypesMission $typesMission): Response
+    public function delete(Request $request, TypeMission $typesMission): Response
     {
         if ($this->isCsrfTokenValid('delete'.$typesMission->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
