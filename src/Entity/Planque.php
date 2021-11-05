@@ -32,7 +32,8 @@ class Planque
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=TypePlanque::class, inversedBy="planques")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $type;
 
@@ -43,7 +44,7 @@ class Planque
     private $nationalite;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="planque")
+     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="planque")
      */
     private $missions;
 
@@ -81,12 +82,12 @@ class Planque
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): TypePlanque
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?TypePlanque $type): self
     {
         $this->type = $type;
 
@@ -105,9 +106,6 @@ class Planque
         return $this;
     }
 
-    /**
-     * @return Collection|Mission[]
-     */
     public function getMissions(): Collection
     {
         return $this->missions;
@@ -116,8 +114,8 @@ class Planque
     public function addMission(Mission $mission): self
     {
         if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
-            $mission->setPlanque($this);
+            $this->missions->add($mission);
+            $mission->addPlanque($this);
         }
 
         return $this;
@@ -126,11 +124,15 @@ class Planque
     public function removeMission(Mission $mission): self
     {
         if ($this->missions->removeElement($mission)) {
-            // set the owning side to null (unless already changed)
-            if ($mission->getPlanque() === $this) {
-                $mission->setPlanque(null);
-            }
+            $mission->removePlanque($this);
         }
+
+        return $this;
+    }
+
+    public function setMissions(Collection $missions): self
+    {
+        $this->missions = $missions;
 
         return $this;
     }
