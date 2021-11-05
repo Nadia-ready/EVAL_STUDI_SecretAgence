@@ -65,12 +65,20 @@ class Agent
     private $nationalite;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Specialite::class, mappedBy="agents")
+     * @ORM\ManyToMany(targetEntity=Specialite::class)
+     * @ORM\JoinTable(name="agent_specialite",
+     *      joinColumns={@ORM\JoinColumn(name="agent_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="specialite_id", referencedColumnName="id")}
+     * )
      */
     private $specialites;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="agents")
+     * @ORM\ManyToMany(targetEntity=Mission::class)
+     * @ORM\JoinTable(name="mission_agent",
+     *      joinColumns={@ORM\JoinColumn(name="agent_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="mission_id", referencedColumnName="id")}
+     * )
      */
     private $missions;
 

@@ -49,12 +49,12 @@ class Nationalite
     private $cibles;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Contact::class, mappedBy="nationalite")
+     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="nationalite")
      */
     private $contacts;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Planque::class, mappedBy="nationalite")
+     * @ORM\OneToMany(targetEntity=Planque::class, mappedBy="nationalite")
      */
     private $planques;
 

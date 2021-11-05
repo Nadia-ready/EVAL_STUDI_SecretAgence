@@ -27,7 +27,11 @@ class Specialite
     private $nom;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Agent::class, mappedBy="specialites")
+     * @ORM\ManyToMany(targetEntity=Agent::class)
+     * @ORM\JoinTable(name="agent_specialite",
+     *      joinColumns={@ORM\JoinColumn(name="specialite_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="agent_id", referencedColumnName="id")}
+     * )
      */
     private $agents;
 

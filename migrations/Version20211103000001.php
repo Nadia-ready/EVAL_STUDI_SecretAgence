@@ -28,9 +28,9 @@ final class Version20211103000001 extends AbstractMigration
         $table->addColumn('code', 'string');
 
         $table->setPrimaryKey(['id']);
-        $table->addUniqueIndex(['pays']);
-        $table->addUniqueIndex(['nationalite']);
-        $table->addUniqueIndex(['code']);
+        //$table->addUniqueIndex(['pays']);
+        //$table->addUniqueIndex(['nationalite']);
+        //$table->addUniqueIndex(['code']);
     }
 
     public function down(Schema $schema): void

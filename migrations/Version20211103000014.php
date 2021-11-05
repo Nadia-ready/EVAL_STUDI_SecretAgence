@@ -29,7 +29,7 @@ final class Version20211103000014 extends AbstractMigration
         $table->setPrimaryKey(['id']);
         $table->addForeignKeyConstraint('mission', ['mission_id'], ['id']);
         $table->addForeignKeyConstraint('contact', ['contact_id'], ['id']);
-        $table->addUniqueIndex(['mission_id', 'contact_id']);
+        //$table->addUniqueIndex(['mission_id', 'contact_id']);
 
     }
 

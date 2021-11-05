@@ -64,8 +64,11 @@ class Mission
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="missions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Mission::class)
+     * @ORM\JoinTable(name="mission_agent",
+     *      joinColumns={@ORM\JoinColumn(name="mission_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="agent_id", referencedColumnName="id")}
+     * )
      */
     private $agents;
 
@@ -88,20 +91,29 @@ class Mission
     private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Planque::class, inversedBy="missions")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToMany(targetEntity=Planque::class)
+     * @ORM\JoinTable(name="mission_planque",
+     *      joinColumns={@ORM\JoinColumn(name="mission_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="planque_id", referencedColumnName="id")}
+     * )
      */
     private $planques;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="missions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Contact::class)
+     * @ORM\JoinTable(name="mission_contact",
+     *      joinColumns={@ORM\JoinColumn(name="mission_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="contact_id", referencedColumnName="id")}
+     * )
      */
     private $contacts;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Cible::class, inversedBy="missions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Cible::class)
+     * @ORM\JoinTable(name="mission_cible",
+     *      joinColumns={@ORM\JoinColumn(name="mission_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="cible_id", referencedColumnName="id")}
+     * )
      */
     private $cibles;
 

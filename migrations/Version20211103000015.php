@@ -29,7 +29,7 @@ final class Version20211103000015 extends AbstractMigration
         $table->setPrimaryKey(['id']);
         $table->addForeignKeyConstraint('mission', ['mission_id'], ['id']);
         $table->addForeignKeyConstraint('planque', ['planque_id'], ['id']);
-        $table->addUniqueIndex(['mission_id', 'planque_id']);
+        //$table->addUniqueIndex(['mission_id', 'planque_id']);
     }
 
     public function down(Schema $schema): void

@@ -38,7 +38,7 @@ final class Version20211103000011 extends AbstractMigration
         $table->addForeignKeyConstraint('statut_mission', ['statut_id'], ['id']);
         $table->addForeignKeyConstraint('type_mission', ['type_id'], ['id']);
         $table->addForeignKeyConstraint('nationalite', ['nationalite_id'], ['id']);
-        $table->addUniqueIndex(['nom_code']);
+        //$table->addUniqueIndex(['nom_code']);
 
     }
 

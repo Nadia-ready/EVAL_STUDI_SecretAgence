@@ -61,7 +61,11 @@ class Cible
     private $nationalite;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="cibles")
+     * @ORM\ManyToMany(targetEntity=Mission::class)
+     * @ORM\JoinTable(name="mission_cible",
+     *      joinColumns={@ORM\JoinColumn(name="cible_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="mission_id", referencedColumnName="id")}
+     * )
      */
     private $missions;
 

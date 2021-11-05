@@ -26,7 +26,7 @@ final class Version20211103000009 extends AbstractMigration
         $table->addColumn('nom', 'string');
         
         $table->setPrimaryKey(['id']);
-        $table->addUniqueIndex(['nom']);
+        //$table->addUniqueIndex(['nom']);
     }
 
     public function down(Schema $schema): void

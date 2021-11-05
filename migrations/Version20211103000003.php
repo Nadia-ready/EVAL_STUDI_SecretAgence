@@ -31,7 +31,7 @@ final class Version20211103000003 extends AbstractMigration
 
         $table->setPrimaryKey(['id']);
         $table->addForeignKeyConstraint('nationalite', ['nationalite_id'], ['id']);
-        $table->addUniqueIndex(['nom_code']);
+        //$table->addUniqueIndex(['nom_code']);
     }
 
     public function down(Schema $schema): void
