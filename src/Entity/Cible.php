@@ -61,7 +61,7 @@ class Cible
     private $nationalite;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="cible")
+     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="cibles")
      */
     private $missions;
 
@@ -123,7 +123,7 @@ class Cible
         return $this;
     }
 
-    public function getNationalite(): ?Nationalite
+    public function getNationalite(): Nationalite
     {
         return $this->nationalite;
     }
@@ -135,9 +135,6 @@ class Cible
         return $this;
     }
 
-    /**
-     * @return Collection|Mission[]
-     */
     public function getMissions(): Collection
     {
         return $this->missions;
@@ -146,8 +143,8 @@ class Cible
     public function addMission(Mission $mission): self
     {
         if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
-            $mission->setCible($this);
+            $this->missions->add($mission);
+            $mission->addCible($this);
         }
 
         return $this;
@@ -156,11 +153,15 @@ class Cible
     public function removeMission(Mission $mission): self
     {
         if ($this->missions->removeElement($mission)) {
-            // set the owning side to null (unless already changed)
-            if ($mission->getCible() === $this) {
-                $mission->setCible(null);
-            }
+            $mission->removeCible($this);
         }
+
+        return $this;
+    }
+
+    public function setMissions(Collection $missions): self
+    {
+        $this->missions = $missions;
 
         return $this;
     }

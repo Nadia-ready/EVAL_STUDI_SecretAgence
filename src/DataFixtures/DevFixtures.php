@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Agent;
 use App\Entity\Nationalite;
 use App\Entity\Specialite;
+use App\Entity\StatutMission;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
