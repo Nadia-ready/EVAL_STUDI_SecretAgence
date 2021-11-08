@@ -12,12 +12,12 @@ use App\Entity\Planque;
 use App\Entity\Specialite;
 use App\Entity\StatutMission;
 use App\Entity\TypeMission;
-use Doctrine\DBAL\Types\DateType;
-use Doctrine\DBAL\Types\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,11 +26,16 @@ class MissionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre', TextType::class, ['required' => true])
-            ->add('description', TextareaType::class, ['required' => true])
-            ->add('nom_code', TextType::class, ['required' => true])
-            ->add('date_debut', DateType::class, ['required' => true])
-            ->add('date_fin', DateType::class, ['required' => true])
+            ->add('titre', TextType::class, [
+                'required' => true])
+            ->add('description', TextareaType::class, [
+                'required' => true])
+            ->add('nom_code', TextType::class, [
+                'required' => true])
+            ->add('date_debut', DateType::class, [
+                'required' => true])
+            ->add('date_fin', DateType::class, [
+                'required' => true])
             ->add('nationalite', EntityType::class, [
                 'class' => Nationalite::class,
                 'choice_label' => 'pays',

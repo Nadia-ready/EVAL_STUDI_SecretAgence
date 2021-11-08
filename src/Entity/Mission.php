@@ -79,6 +79,12 @@ class Mission
     private $specialite;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Nationalite::class, inversedBy="missions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $nationalite;
+
+    /**
      * @ORM\ManyToOne(targetEntity=StatutMission::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -365,6 +371,7 @@ class Mission
 
         return $this;
     }
+
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {

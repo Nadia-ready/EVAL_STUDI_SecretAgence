@@ -14,10 +14,14 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class, ['required' => true])
-            ->add('prenom', TextType::class, ['required' => true])
-            ->add('date_naissance', DateType::class, ['required' => true])
-            ->add('nom_code', TextType::class, ['required' => true])
+            ->add('nom', TextType::class, [
+                'required' => true])
+            ->add('prenom', TextType::class, [
+                'required' => true])
+            ->add('date_naissance', DateType::class, [
+                'required' => true])
+            ->add('nom_code', TextType::class, [
+                'required' => true])
             ->add('nationalite', EntityType::class, [
                 'class' => Nationalite::class,
                 'choice_label' => 'nationalite',
