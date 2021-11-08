@@ -12,9 +12,12 @@ use App\Entity\Planque;
 use App\Entity\Specialite;
 use App\Entity\StatutMission;
 use App\Entity\TypeMission;
+use Doctrine\DBAL\Types\DateType;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,47 +26,63 @@ class MissionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
-            ->add('description')
-            ->add('nom_code')
-            ->add('date_debut')
-            ->add('date_fin')
-
-            ->add('agent', EntityType::class, [
-                'class' => Agent::class,
-                'choice_label' => 'nom'
+            ->add('titre', TextType::class, ['required' => true])
+            ->add('description', TextareaType::class, ['required' => true])
+            ->add('nom_code', TextType::class, ['required' => true])
+            ->add('date_debut', DateType::class, ['required' => true])
+            ->add('date_fin', DateType::class, ['required' => true])
+            ->add('nationalite', EntityType::class, [
+                'class' => Nationalite::class,
+                'choice_label' => 'pays',
+                'required' => true,
             ])
             ->add('specialite', EntityType::class, [
                 'class' => Specialite::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'required' => true,
             ])
             ->add('statut', EntityType::class, [
                 'class' => StatutMission::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'required' => true,
             ])
-            ->add('typesMission', EntityType::class, [
+            ->add('type', EntityType::class, [
                 'class' => TypeMission::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'required' => true,
             ])
-            ->add('planque', EntityType::class, [
+            ->add('agents', EntityType::class, [
+                'class' => Agent::class,
+                'choice_label' => function (Agent $agent) {
+                    return $agent->getPrenom() . ' ' . $agent->getNom() . ' (' . $agent->getNationalite()->getNationalite() . ')';
+                },
+                'required' => true,
+                'multiple' => true
+            ])
+            ->add('planques', EntityType::class, [
                 'class' => Planque::class,
-                'choice_label' => 'code'
+                'choice_label' => 'nom_code',
+                'required' => true,
+                'multiple' => true
             ])
-            ->add('contact', EntityType::class, [
+            ->add('contacts', EntityType::class, [
                 'class' => Contact::class,
-                'choice_label' => 'nom'
+                'choice_label' => function (Contact $contact) {
+                    return $contact->getPrenom() . " " . $contact->getNom();
+                },
+                'required' => true,
+                'multiple' => true
             ])
-            ->add('cible', EntityType::class, [
+            ->add('cibles', EntityType::class, [
                 'class' => Cible::class,
-                'choice_label' => 'nom'
-            ])
-            ->add('nationalite', EntityType::class, [
-                'class' => Nationalite::class,
-                'choice_label' => 'pays'
+                'choice_label' => function (Cible $cible) {
+                    return $cible->getPrenom() . " " . $cible->getNom() . ' (' . $cible->getNationalite()->getNationalite() . ')';
+                },
+                'required' => true,
+                'multiple' => true
             ])
 
-            ->add('submit', SubmitType::class)
-        ;
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

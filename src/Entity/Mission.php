@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MissionRepository;
-use App\Validator\CibleAgentNationality;
 use App\Validator\MissionCibleAgentNationality;
+use App\Validator\MissionCibleAgentNationalityValidator;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -368,6 +368,6 @@ class Mission
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('agents', new MissionCibleAgentNationality());
+        $metadata->addPropertyConstraint('agents', new MissionCibleAgentNationalityValidator());
     }
 }

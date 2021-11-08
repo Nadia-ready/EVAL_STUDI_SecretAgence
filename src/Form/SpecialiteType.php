@@ -14,12 +14,7 @@ class SpecialiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            //->add('agent', EntityType::class, [
-            //    'class' => Agent::class,
-            //    'choice_label' => 'nom',
-            //    'required' => true
-            //])
+            ->add('nom', TextType::class, ['required' => true])
         ;
     }
 

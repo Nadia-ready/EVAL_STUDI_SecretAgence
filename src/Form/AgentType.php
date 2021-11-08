@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Agent;
 use App\Entity\Nationalite;
 use App\Entity\Specialite;
+use Doctrine\DBAL\Types\DateType;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,24 +17,22 @@ class AgentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('date_naissance')
-            ->add('code_identification')
+            ->add('nom', TextType::class, ['required' => true])
+            ->add('prenom', TextType::class, ['required' => true])
+            ->add('date_naissance', DateType::class, ['required' => true])
+            ->add('nom_code', TextType::class, ['required' => true])
             ->add('nationalite', EntityType::class, [
                 'class' => Nationalite::class,
                 'choice_label' => 'nationalite',
                 'mapped' => false
             ])
-            ->add('specialite', EntityType::class, [
+            ->add('specialites', EntityType::class, [
                 'class' => Specialite::class,
                 'choice_label' => 'nom',
-                'required' =>true,
-                'mapped' => false
-
-            ])
-            //->add('agent')
-        ;
+                'required' => true,
+                'mapped' => false,
+                'multiple' => true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
