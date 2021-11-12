@@ -8,6 +8,7 @@ use App\Repository\CibleRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class MissionCibleAgentNationalityValidator extends ConstraintValidator
 {
@@ -22,11 +23,12 @@ class MissionCibleAgentNationalityValidator extends ConstraintValidator
 
     public function validate($agents, Constraint $constraint)
     {
-        if (is_array($agents) && is_array($this->cibles)) {
+        /** @var ArrayCollection $agents */
+        if (!$agents->isEmpty() && is_array($this->cibles)) {
             // transform $agents array in Nationalite id array
             $agentNationaliteIds = array_map(function (Agent $agent) {
                 return $agent->getNationalite()->getId();
-            }, $agents);
+            }, $agents->toArray());
 
             // transform $this->cibles array in Nationalite id array
             $cibleNationaliteIds = array_map(function (Cible $cible) {

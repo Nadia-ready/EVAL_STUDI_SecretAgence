@@ -65,7 +65,7 @@ class Mission
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Mission::class)
+     * @ORM\ManyToMany(targetEntity=Agent::class)
      * @ORM\JoinTable(name="mission_agent",
      *      joinColumns={@ORM\JoinColumn(name="mission_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="agent_id", referencedColumnName="id")}
