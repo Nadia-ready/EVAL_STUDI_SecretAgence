@@ -13,31 +13,33 @@
     {% endblock stylesheets %}
 </head>
 <body>
-<header class="header-top">
-    <a href="{{ path('home') }}">
-        <img class="header-top-image" src="{{ asset('assets/image/logo.jpg') }}" alt="logo">
-    </a>
-
-    <form action="{{ path('mission_search') }}">
-        <label for="q">Rechercher des missions</label>
-        <input type="text" name="q" />
-        <input type="submit">
-    </form>
-
-    <nav>
-        <ul>
-
-            <li><a href="{{ path('admin_missions_list') }}"> Liste des missions</a></li>
-
-            {% if app.user %}
-                <li><a href="{{ path('admin_missions_list') }}"> Zone admin</a></li>
-            {% else %}
-                <li><a href="{{ path('app_login') }}"> Zone admin</a></li>
-            {% endif %}
-
-            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-        </ul>
-
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href={{ path('home') }}">
+            <img class="header-top-image" src="{{ asset('assets/image/logo3.png') }}" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="{{ path('admin_missions_list') }}">Liste des missions</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">Administrateur</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <form class="d-flex"
+                  action="{{ path('mission_search') }}">
+                <label for="q">Rechercher des missions</label>
+                <input class="form-control me-2" type="search" name="q" placeholder="Chercher une mission" aria-label="Search">
+                <button class="btn btn-outline-success"
+                        type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
 </header>
 <main>
     {% block main %}

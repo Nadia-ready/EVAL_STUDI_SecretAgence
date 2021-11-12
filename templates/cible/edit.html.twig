@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}Edit Cible{% endblock %}
+{% block title %}Créer une cible{% endblock %}
 
 {% block main %}
-    <h1>Edit Cible</h1>
+    <h1>Créer une cible</h1>
 
     {{ include('cible/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('cible_index') }}">back to list</a>
+    <a href="{{ path('cible_index') }}" class="btn btn-primary">Retour à la liste</a>
 
     {{ include('cible/_delete_form.html.twig') }}
 {% endblock %}

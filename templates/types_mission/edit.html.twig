@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}Edit TypesMission{% endblock %}
+{% block title %}Créer un nouveau type de mission{% endblock %}
 
 {% block main %}
-    <h1>Edit TypesMission</h1>
+    <h1>Créer un nouveau type de mission</h1>
 
     {{ include('types_mission/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('types_mission_index') }}">back to list</a>
+    <a href="{{ path('types_mission_index') }}" class="btn btn-primary">Retour à la liste</a>
 
     {{ include('types_mission/_delete_form.html.twig') }}
 {% endblock %}

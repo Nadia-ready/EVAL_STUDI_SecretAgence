@@ -375,6 +375,6 @@ class Mission
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('agents', new MissionCibleAgentNationalityValidator());
+        $metadata->addPropertyConstraint('agents', new MissionCibleAgentNationality());
     }
 }

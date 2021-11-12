@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}TypesMission index{% endblock %}
+{% block title %}Liste des types de mission{% endblock %}
 
 {% block main %}
-    <h1>TypesMission index</h1>
+    <h1>Liste des types de mission</h1>
 
     <table class="table table-dark table-striped">
         <thead>
@@ -19,8 +19,8 @@
                 <td>{{ types_mission.id }}</td>
                 <td>{{ types_mission.nom }}</td>
                 <td>
-                    <a href="{{ path('types_mission_show', {'id': types_mission.id}) }}">show</a>
-                    <a href="{{ path('types_mission_edit', {'id': types_mission.id}) }}">edit</a>
+                    <a href="{{ path('types_mission_show', {'id': types_mission.id}) }}" class="btn btn-primary">Détails</a>
+                    <a href="{{ path('types_mission_edit', {'id': types_mission.id}) }}" class="btn btn-primary">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('types_mission_new') }}">Create new</a>
+    <a href="{{ path('types_mission_new') }}" class="btn btn-primary">Créer un nouveau type de mission</a>
+    <a href="{{ path('admin_missions_list') }}" class="btn btn-primary">Retour à la liste des missions</a>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Planque index{% endblock %}
 
@@ -23,8 +23,8 @@
                 <td>{{ planque.adresse }}</td>
                 <td>{{ planque.type }}</td>
                 <td>
-                    <a href="{{ path('planque_show', {'id': planque.id}) }}">show</a>
-                    <a href="{{ path('planque_edit', {'id': planque.id}) }}">edit</a>
+                    <a href="{{ path('planque_show', {'id': planque.id}) }}" class="btn btn-primary">Détails</a>
+                    <a href="{{ path('planque_edit', {'id': planque.id}) }}" class="btn btn-primary">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('planque_new') }}">Create new</a>
+    <a href="{{ path('planque_new') }}" class="btn btn-primary">Créer une nouvelle planque</a>
+    <a href="{{ path('admin_missions_list') }}" class="btn btn-primary">Retour à la liste des missions</a>
 {% endblock %}

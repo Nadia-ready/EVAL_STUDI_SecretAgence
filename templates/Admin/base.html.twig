@@ -9,34 +9,41 @@
 
     {%  block stylesheets %}
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>"
     {% endblock stylesheets %}
 </head>
 <body>
-<header class="header-top">
-    <a href="{{ path('home') }}">
-        <img class="header-top-image" src="{{ asset('assets/image/logo.jpg') }}" alt="logo">
-    </a>
-
-
-    <form action="{{ path('mission_search') }}">
-        <label for="q">Rechercher des missions</label>
-        <input type="text" name="q" />
-        <input type="submit">
-    </form>
-
-    <nav>
-        <ul>
-            <li><a href="{{ path('admin_missions_list') }}"> Liste des missions</a></li>
-
-
-            <li><a href="{{ path('app_login') }}"> Changer Admin</a></li>
-            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-        </ul>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href={{ path('home') }}">
+            <img class="header-top-image" src="{{ asset('assets/image/logo3.png') }}" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="{{ path('admin_missions_list') }}">Liste des missions</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">Administrateur</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <a class="navbar-brand">Zone ADMIN pour {{ app.user.email }}</a>
+            <form class="d-flex"
+                action="{{ path('mission_search') }}">
+                <label for="q">Rechercher des missions</label>
+                <input class="form-control me-2" type="search" name="q" placeholder="Chercher une mission" aria-label="Search">
+                <button class="btn btn-outline-success"
+                        type="submit">Search</button>
+            </form>
+        </div>
     </nav>
-
-    <p>Zone ADMIN pour {{ app.user.email }}</p>
-
 </header>
+
 <main>
     {% block main %}
 

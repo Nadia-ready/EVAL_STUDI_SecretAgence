@@ -25,14 +25,14 @@
             </tr>
             <tr>
                 <th>Code_identification</th>
-                <td>{{ agent.codeIdentification }}</td>
+                <td>{{ agent.NomCode }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('agent_index') }}">back to list</a>
+    <a href="{{ path('agent_index') }}" class="btn btn-primary">Retour à la liste</a>
 
-    <a href="{{ path('agent_edit', {'id': agent.id}) }}">edit</a>
+    <a href="{{ path('agent_edit', {'id': agent.id}) }}" class="btn btn-primary">Créer un nouvel agent</a>
 
     {{ include('agent/_delete_form.html.twig') }}
 {% endblock %}
