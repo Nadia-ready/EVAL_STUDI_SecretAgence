@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MissionRepository;
 use App\Validator\MissionCibleAgentNationality;
 use App\Validator\MissionCibleAgentNationalityValidator;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -123,6 +124,14 @@ class Mission
      */
     private $cibles;
 
+    public function __construct()
+    {
+        $this->agents= new ArrayCollection();
+        $this->cibles = new ArrayCollection();
+        $this->contacts= new ArrayCollection();
+        $this->planques= new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,7 +197,7 @@ class Mission
         return $this;
     }
 
-    public function getAgents(): Collection
+    public function getAgents(): Collection|null
     {
         return $this->agents;
     }
@@ -219,7 +228,7 @@ class Mission
         return $this;
     }
 
-    public function getSpecialite(): Specialite
+    public function getSpecialite(): Specialite|null
     {
         return $this->specialite;
     }
@@ -231,7 +240,7 @@ class Mission
         return $this;
     }
 
-    public function getStatut(): StatutMission
+    public function getStatut(): StatutMission|null
     {
         return $this->statut;
     }
@@ -243,7 +252,7 @@ class Mission
         return $this;
     }
 
-    public function getType(): TypeMission
+    public function getType(): TypeMission|null
     {
         return $this->type;
     }
@@ -267,7 +276,7 @@ class Mission
         return $this;
     }
 
-    public function getPlanques(): Collection
+    public function getPlanques(): Collection|null
     {
         return $this->planques;
     }
@@ -298,7 +307,7 @@ class Mission
         return $this;
     }
 
-    public function getContacts(): Collection
+    public function getContacts(): Collection|null
     {
         return $this->contacts;
     }
@@ -329,7 +338,7 @@ class Mission
         return $this;
     }
 
-    public function getCibles(): Collection
+    public function getCibles(): Collection|null
     {
         return $this->cibles;
     }
@@ -360,7 +369,7 @@ class Mission
         return $this;
     }
 
-    public function getNationalite(): Nationalite
+    public function getNationalite(): Nationalite|null
     {
         return $this->nationalite;
     }

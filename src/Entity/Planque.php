@@ -21,10 +21,10 @@ class Planque
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Assert\NotNull(message="Code obligatoire")
      */
-    private $code;
+    private $nom_code;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -62,14 +62,14 @@ class Planque
         return $this->id;
     }
 
-    public function getCode(): ?int
+    public function getNomCode(): ?string
     {
-        return $this->code;
+        return $this->nom_code;
     }
 
-    public function setCode(int $code): self
+    public function setNomCode(int $code): self
     {
-        $this->code = $code;
+        $this->nom_code = $code;
 
         return $this;
     }
