@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\MissionRepository;
 use App\Validator\MissionCibleAgentNationality;
 use App\Validator\MissionCibleAgentNationalityValidator;
+use App\Validator\MissionContactMissionNationality;
+use App\Validator\MissionContactMissionNationalityValidator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -212,6 +214,7 @@ class Mission
         return $this;
     }
 
+
     public function removeAgent(Agent $agent): self
     {
         if ($this->agents->removeElement($agent)) {
@@ -385,5 +388,8 @@ class Mission
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('agents', new MissionCibleAgentNationality());
+        $metadata->addPropertyConstraint('contacts', new MissionContactMissionNationality());
     }
+
+
 }
