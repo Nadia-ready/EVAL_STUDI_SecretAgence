@@ -2,8 +2,6 @@
 
 namespace App\Validator;
 
-use App\Entity\Agent;
-use App\Entity\Cible;
 use App\Entity\Contact;
 use App\Entity\Mission;
 use App\Repository\CibleRepository;
@@ -15,31 +13,37 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class MissionContactMissionNationalityValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    protected $nationaliteId;
+
+    public function __construct(RequestStack $requestStack)
     {
-        /* @var $constraint \App\Validator\MissionPlanqueMissionNationality */
+        $request = $requestStack->getCurrentRequest();
+        $fields = (object)$request->request->get('mission');
+        $this->nationaliteId = $fields->nationalite;
+    }
 
-        if (null === $value || '' === $value) {
-            return;
+    public function validate($contacts, Constraint $constraint)
+    {
+        /** @var ArrayCollection $contacts */
+        if (!$contacts->isEmpty() && !empty($this->nationaliteId)) {
+            // by default, we expect that all nationalites are equals
+            $allNationaliteEquals = true;
+
+            // check if it's true for all contact nationalite
+            foreach ($contacts->toArray() as $contact) {
+                /** @var Contact $contact */
+                // if contact's nationelite is not equal to mission nationalite, switch to false
+                if ($this->nationaliteId != $contact->getNationalite()->getId()) {
+                    $allNationaliteEquals = false;
+                }
+             }
+
+            // if at least one contact has not the same nationalite than mission
+            if ($allNationaliteEquals === false) {
+                $this->context
+                    ->buildViolation($constraint->message)
+                    ->addViolation();
+            }
         }
-
-        $missionNationaliteIds = function (Mission $mission) {
-                 $mission->getNationalite()->getId();
-        };
-
-
-        // transform $this->contacts array in Nationalite id array
-        $contactNationaliteIds = function (Contact $contact) {
-             $contact->getNationalite()->getId();
-        };
-
-
-        if ($contactNationaliteIds === $missionNationaliteIds) {
-
-            $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ value }}', $value)
-                ->addViolation();
-        };
     }
 }
-
