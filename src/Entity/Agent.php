@@ -159,7 +159,7 @@ class Agent
         return $this->specialites;
     }
 
-    public function addSpecialite(Specialite $specialite): self
+    public function addSpecialites(Specialite $specialite): self
     {
         if (!$this->specialites->contains($specialite)) {
             $this->specialites->add($specialite);
@@ -169,7 +169,7 @@ class Agent
         return $this;
     }
 
-    public function removeSpecialite(Specialite $specialite): self
+    public function removeSpecialites(Specialite $specialite): self
     {
         if($this->specialites->removeElement($specialite)) {
             $specialite->removeAgent($this);

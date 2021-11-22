@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MissionRepository;
+use App\Validator\AgentSpecialiteMission;
 use App\Validator\MissionCibleAgentNationality;
 use App\Validator\MissionCibleAgentNationalityValidator;
 use App\Validator\MissionContactMissionNationality;
@@ -391,6 +392,7 @@ class Mission
         $metadata->addPropertyConstraint('agents', new MissionCibleAgentNationality());
         $metadata->addPropertyConstraint('contacts', new MissionContactMissionNationality());
         $metadata->addPropertyConstraint('planques', new MissionPlanqueMissionNationality());
+        $metadata->addPropertyConstraint('agents', new AgentSpecialiteMission());
     }
 
 

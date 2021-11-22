@@ -13,5 +13,5 @@ class AgentSpecialiteMission extends Constraint
      * Any public properties become valid options for the annotation.
      * Then, use these in your validator class.
      */
-    public $message = 'The value "{{ value }}" is not valid.';
+    public $message = 'Il faut assigner au moins 1 agent disposant de la spécialité requise.';
 }
