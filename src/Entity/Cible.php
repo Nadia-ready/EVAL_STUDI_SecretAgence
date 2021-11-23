@@ -128,7 +128,7 @@ class Cible
         return $this;
     }
 
-    public function getNationalite(): Nationalite
+    public function getNationalite(): Nationalite|null
     {
         return $this->nationalite;
     }

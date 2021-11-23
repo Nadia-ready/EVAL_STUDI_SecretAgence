@@ -50,7 +50,7 @@ class Contact
     private $date_naissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", length=11)
      */
     private $nom_code;
 

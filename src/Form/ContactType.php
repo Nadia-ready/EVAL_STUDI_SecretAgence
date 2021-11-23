@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\Nationalite;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

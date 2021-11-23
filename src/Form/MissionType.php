@@ -59,21 +59,23 @@ class MissionType extends AbstractType
             ->add('agents', EntityType::class, [
                 'class' => Agent::class,
                 'choice_label' => function (Agent $agent) {
-                    return $agent->getPrenom() . ' ' . $agent->getNom() . ' (' . $agent->getNationalite()->getNationalite() . ')';
+                    return $agent->getPrenom() . ' ' . $agent->getNom() . ' (' . $agent->getNationalite()->getNationalite() . ')' ;
                 },
                 'required' => true,
                 'multiple' => true
             ])
             ->add('planques', EntityType::class, [
                 'class' => Planque::class,
-                'choice_label' => 'nom_code',
+                'choice_label' => function (Planque $planque) {
+                    return $planque->getNomCode() . ' (' . $planque->getNationalite()->getNationalite() . ')';
+                },
                 'required' => true,
                 'multiple' => true
             ])
             ->add('contacts', EntityType::class, [
                 'class' => Contact::class,
                 'choice_label' => function (Contact $contact) {
-                    return $contact->getPrenom() . " " . $contact->getNom();
+                    return $contact->getPrenom() . " " . $contact->getNom() . '(' . $contact->getNationalite()->getNationalite() . ')';
                 },
                 'required' => true,
                 'multiple' => true
