@@ -108,7 +108,7 @@ class Contact
         return $this->date_naissance;
     }
 
-    public function setDateNaissance(string $date_naissance): self
+    public function setDateNaissance(\DateTimeInterface $date_naissance): self
     {
         $this->date_naissance = $date_naissance;
 
